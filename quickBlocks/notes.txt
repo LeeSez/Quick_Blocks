@@ -1,0 +1,4 @@
+1. title shifts when the is too small
+2. blocks contaioner shirks in an unsimetrical way
+3. the game runs in a bad pahse
+4. consider changing the purple block asit is not very visible 

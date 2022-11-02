@@ -1,0 +1,81 @@
+body{
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+#topPanel{
+  display: flex;
+  flex-flow: row nowrap;
+
+  width: 100%;
+  justify-content: center;
+
+  /*margin:5vh 0 0 0;*/
+}
+#topPanel > div {
+  width: 35vw;
+  height: 0.02vw;
+  position: relative;
+  top:2vh;
+  border:0.05vh solid #A3A3A3;
+  border-radius: 50px;
+  background-color: #A3A3A3;
+  margin: 0;
+}
+#topPanel h1{
+  color:#7E7E7E;
+  font-family: 'Comfortaa', cursive;
+  font-size: clamp(20px,2vw, 1000px);
+  margin: 0 3vw;
+}
+
+
+.block {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20%;
+
+  filter: drop-shadow(0.1vw 0.3vh 0.3vh rgba(0,0,0,0.25));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.one{
+  font-family: 'Marck Script', cursive;
+  font-size: 300%;
+  color: white;
+  visibility: hidden;
+
+  margin: 0;
+  padding: 0;
+}
+
+
+#blocksContainer{
+  width:min(35vw, 70vh);
+  aspect-ratio: 1 / 1;
+
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  gap: 5%;
+
+  padding: 1.5vw;
+
+  background-color: #f1f1f1;
+  border-radius: 7%;
+}
+
+#mainContainer{
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 10vh;
+
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
