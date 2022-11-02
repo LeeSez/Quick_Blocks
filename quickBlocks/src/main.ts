@@ -6,6 +6,7 @@ let blockArray:block[] = [];
 let plusOneArray:HTMLElement[] = [];
 let mainContainerRef:HTMLElement | null = document.getElementById("mainContainer");
 let blocksContainerRef:HTMLElement | null = document.getElementById("blocksContainer");
+let pScore:HTMLElement | null = document.getElementById("score");
 
 let score = 0; 
 
@@ -25,6 +26,7 @@ function render():void{
     else if(blockArray[i].visible && (blockArray[i].runTime < 0 || blockArray[i].runTime ==0)){
       blockArray[i].visible = false;
       referenceArray[i].style.backgroundColor = colorArray[i]+"33";
+      plusOneArray[i].style.visibility = "hidden";
 
       resetPlusOneArray();
       selectBlockToShow(1);
@@ -95,7 +97,7 @@ function blockClicked(event:Event):void{
     if(index > -1) plusOneArray[index].style.visibility = "visible";
     if(score > 0) score--;
   }
-  console.log(score);
+  if(pScore) pScore.innerHTML = score+"";
 }
 
 function resetPlusOneArray():void{

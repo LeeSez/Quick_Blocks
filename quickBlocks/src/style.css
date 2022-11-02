@@ -1,6 +1,8 @@
 body{
   overflow-y: hidden;
   overflow-x: hidden;
+
+  font-family: 'Pacifico', cursive;
 }
 
 #topPanel{
@@ -9,21 +11,27 @@ body{
 
   width: 100%;
   justify-content: center;
-
-  /*margin:5vh 0 0 0;*/
+  position: absolute;
 }
 #topPanel > div {
   width: 35vw;
-  height: 0.02vw;
+  height: 0.1vw;
   position: relative;
   top:2vh;
-  border:0.05vh solid #A3A3A3;
   border-radius: 50px;
-  background-color: #A3A3A3;
   margin: 0;
+  background-color: black;
+
+  animation-name: background;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
 }
 #topPanel h1{
-  color:#7E7E7E;
+  color: black;
+  background-position: -1px;
+  animation-name: color;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
   font-family: 'Comfortaa', cursive;
   font-size: clamp(20px,2vw, 1000px);
   margin: 0 3vw;
@@ -42,13 +50,12 @@ body{
   align-items: center;
 }
 .one{
-  font-family: 'Marck Script', cursive;
-  font-size: 300%;
+  font-size: 4vw;
   color: white;
   visibility: hidden;
 
   margin: 0;
-  padding: 0;
+  padding: 0 0 2vh 0;
 }
 
 
@@ -69,13 +76,57 @@ body{
 
 #mainContainer{
   width: 100vw;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  top: 10vh;
 
   overflow-y: hidden;
   overflow-x: hidden;
+}
+
+#balloon {
+  width: 20vh;
+}
+
+#scoreContainer {
+  position: absolute;
+  top:20vh;
+  left: 8vw;
+
+  animation-name: balloonMotion;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+#score {
+  color: white;
+  font-size: 10vh;
+  width: 20vh;
+  text-align: center;
+
+  position: relative;
+  top: -65vh;
+}
+
+@keyframes color {
+  0%   {color: #5FAD56;}
+  20%  {color: #F2C14E;}
+  40%  {color: #F78154;}
+  80% {color: #D4CBE5;}
+  100%   {color: #5FAD56;}
+}
+
+@keyframes background {
+  0%   {background-color: #5FAD56;}
+  20%  {background-color: #F2C14E;}
+  40%  {background-color: #F78154;}
+  80%  {background-color: #D4CBE5;}
+  100% {background-color: #5FAD56;}
+}
+
+@keyframes balloonMotion {
+  0%   {top: 20vh;}
+  50%  {top: 30vh;}
+  100% {top: 20vh;}
 }
