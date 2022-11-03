@@ -7,18 +7,22 @@ let plusOneArray:HTMLElement[] = [];
 let mainContainerRef:HTMLElement | null = document.getElementById("mainContainer");
 let blocksContainerRef:HTMLElement | null = document.getElementById("blocksContainer");
 let pScore:HTMLElement | null = document.getElementById("score");
+let balloonRef: HTMLElement | null = document.getElementById("balloon");
+let scoreContainer: HTMLElement | null = document.getElementById("scoreContainer");
+let pCountDown: HTMLElement | null = document.getElementById("countDown");
 
 let score = 0; 
+let firstPlay = true;
+let shouldPlay = false;
 
 let colorArray = ["#5FAD56","#F2C14E","#F78154","#D4CBE5","#6DB1BF","#BEFFC7","#044389","#9D6381","#EF7A85"];
 
-
+if(scoreContainer) scoreContainer.onclick = divideModes; 
 
 createblocks(9);
-selectBlockToShow(3);
-render();
 
 function render():void{
+  if(!shouldPlay) return;
   for(let i = 0; i<blockArray.length; i++){
     if(blockArray[i].runTime>0){
       blockArray[i].runTime--;
@@ -104,6 +108,74 @@ function resetPlusOneArray():void{
   for(let i = 0; i<plusOneArray.length; i++){
     plusOneArray[i].style.visibility = "hidden";
     plusOneArray[i].innerHTML = "+1";
+  }
+}
+
+function balloonDown():void{ 
+  scoreContainer?.classList.add("ballonDown");
+  if(mainContainerRef) mainContainerRef.classList.add("mainContainerDown");
+
+  setTimeout(()=>{
+    if(scoreContainer) scoreContainer.style.left = "20vh";
+    if(pScore) pScore.style.visibility = "visible";
+    if(mainContainerRef) {
+      mainContainerRef.style.top = "0";
+      mainContainerRef.classList.remove("mainContainerDown");
+    }
+    score = 0;
+    if(pScore) pScore.innerHTML = score + "";
+  },2500)
+  setTimeout(()=>{
+    scoreContainer?.classList.remove("ballonDown");
+    shouldPlay = true;
+    countDown(4);
+    if(pCountDown) pCountDown.style.visibility = "visible";
+  },5000);
+}
+
+function countDown(count:number){
+  if(count>1){
+    count--;
+    if(pCountDown) pCountDown.innerHTML = count+"";
+    setTimeout(()=>{
+      countDown(count);
+    },1000)
+  }
+  else{
+    if(pCountDown) pCountDown.style.visibility = "hidden";
+    selectBlockToShow(3);
+    render();
+  }
+}
+
+function divideModes():void{
+  shouldPlay = false;
+  console.log("fdg");
+  if(firstPlay){
+    firstPlay = false;
+    balloonDown();
+  }
+  else{
+    if(mainContainerRef) mainContainerRef.classList.add("containerMoveLeft");
+    setTimeout(()=>{
+      if(mainContainerRef) {
+        mainContainerRef.style.top = "100vh";
+        mainContainerRef.style.left = "0";
+        mainContainerRef.classList.remove("containerMoveLeft");
+      }
+      reset();
+      balloonDown();
+    },2000);
+  }
+}
+
+
+function reset():void{
+  miliseconds = 500;
+  for(let i = 0; i<referenceArray.length; i++){
+    blockArray[i].visible = false;
+    referenceArray[i].style.backgroundColor = colorArray[i]+"33";
+    plusOneArray[i].style.visibility = "hidden";
   }
 }
 

@@ -4,3 +4,4 @@
 4. consider changing the purple block asit is not very visible 
 5. concider truning it to mario theme
 6. fix the score position
+7. fix the jump of the animation

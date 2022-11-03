@@ -3,6 +3,7 @@ body{
   overflow-x: hidden;
 
   font-family: 'Pacifico', cursive;
+  margin: 0;
 }
 
 #topPanel{
@@ -12,12 +13,17 @@ body{
   width: 100%;
   justify-content: center;
   position: absolute;
+
+  background-color: white;
+  z-index: 10;
+
+  margin: 0;
 }
 #topPanel > div {
   width: 35vw;
   height: 0.1vw;
   position: relative;
-  top:2vh;
+  top:4vh;
   border-radius: 50px;
   margin: 0;
   background-color: black;
@@ -32,7 +38,6 @@ body{
   animation-name: color;
   animation-duration: 20s;
   animation-iteration-count: infinite;
-  font-family: 'Comfortaa', cursive;
   font-size: clamp(20px,2vw, 1000px);
   margin: 0 3vw;
 }
@@ -43,7 +48,8 @@ body{
   aspect-ratio: 1 / 1;
   border-radius: 20%;
 
-  filter: drop-shadow(0.1vw 0.3vh 0.3vh rgba(0,0,0,0.25));
+  filter: drop-shadow(0.1vw 0.3vh 0.3vh rgba(0,0,0,0.25)) drop-shadow(-0.2vw -0.6vh 0.3vh rgba(255,255,255,0.7));
+  
 
   display: flex;
   justify-content: center;
@@ -83,31 +89,73 @@ body{
 
   overflow-y: hidden;
   overflow-x: hidden;
+
+  position: relative;
+  top:100vh;
+
+  z-index: 5;
 }
 
 #balloon {
-  width: 20vh;
+  width: 10vw;
+
+  cursor: grab;
 }
 
 #scoreContainer {
   position: absolute;
   top:20vh;
-  left: 8vw;
+  left: 45vw;
 
   animation-name: balloonMotion;
   animation-duration: 5s;
   animation-iteration-count: infinite;
+
+  z-index: 9;
+}
+
+.ballonDown {
+  animation-name: balloonDownAnimation !important;
+  animation-duration: 5s !important;
+  animation-iteration-count: infinite !important;
+}
+
+.mainContainerDown {
+  animation-name: mainContainerDownAnimation !important;
+  animation-duration: 2.5s !important;
+  animation-iteration-count: 1 !important;
 }
 
 #score {
   color: white;
-  font-size: 10vh;
-  width: 20vh;
+  font-size: 6vw;
+  width: 10vw;
   text-align: center;
 
-  position: relative;
-  top: -65vh;
+  position: absolute;
+  top: -12vh;
+
+  visibility: hidden;
 }
+
+#countDown {
+  color: white;
+  font-size: 30vh;
+  visibility: hidden;
+
+  position: absolute;
+  top: 20vw;
+  margin: auto;
+}
+
+.containerMoveLeft {
+  animation-name: containerMoveLeft !important;
+  animation-duration: 3s !important;
+  animation-iteration-count: 1 !important;
+}
+
+
+
 
 @keyframes color {
   0%   {color: #5FAD56;}
@@ -129,4 +177,20 @@ body{
   0%   {top: 20vh;}
   50%  {top: 30vh;}
   100% {top: 20vh;}
+}
+
+@keyframes balloonDownAnimation {
+  0%   {top: 20vh;}
+  50%  {top: 120vh;}
+  100% {top: 20vh;}
+}
+
+@keyframes mainContainerDownAnimation {
+  0%   {top: -100vh}
+  100% {top: 0vh}
+}
+
+@keyframes containerMoveLeft {
+  0%   {left: 0vh}
+  100% {left: 200vh}
 }
