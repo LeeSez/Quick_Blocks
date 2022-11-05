@@ -36,12 +36,14 @@ function render():void{
       selectBlockToShow(1);
     }
   }
-  miliseconds -= 0.05;
-  if(miliseconds>30){
+  if(miliseconds>250) miliseconds -= 0.05;
+  else miliseconds -= 0.03;
+  if(miliseconds>50){
     setTimeout(()=>{
       render();
     },1);
   }
+  else shouldPlay = false;
 }
 
 function selectBlockToShow(amount:number):void{
@@ -91,17 +93,19 @@ function createPlusOne(element:HTMLDivElement):void{
 }
 
 function blockClicked(event:Event):void{
-  let index = event.target === null ? -1 : referenceArray.indexOf(event.target as HTMLDivElement);
-  if(blockArray[index].visible){
-    if(index > -1) plusOneArray[index].style.visibility = "visible";
-    score++;
-  }
-  else{
-    plusOneArray[index].innerHTML = "-1";
-    if(index > -1) plusOneArray[index].style.visibility = "visible";
-    if(score > 0) score--;
-  }
-  if(pScore) pScore.innerHTML = score+"";
+  if(shouldPlay){
+    let index = event.target === null ? -1 : referenceArray.indexOf(event.target as HTMLDivElement);
+    if(blockArray[index].visible){
+      if(index > -1) plusOneArray[index].style.visibility = "visible";
+      score++;
+    }
+    else{
+      plusOneArray[index].innerHTML = "-1";
+      if(index > -1) plusOneArray[index].style.visibility = "visible";
+      if(score > 0) score--;
+    }
+    if(pScore) pScore.innerHTML = score+"";
+}
 }
 
 function resetPlusOneArray():void{
@@ -150,7 +154,6 @@ function countDown(count:number){
 
 function divideModes():void{
   shouldPlay = false;
-  console.log("fdg");
   if(firstPlay){
     firstPlay = false;
     balloonDown();
