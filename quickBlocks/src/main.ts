@@ -7,19 +7,35 @@ let plusOneArray:HTMLElement[] = [];
 let mainContainerRef:HTMLElement | null = document.getElementById("mainContainer");
 let blocksContainerRef:HTMLElement | null = document.getElementById("blocksContainer");
 let pScore:HTMLElement | null = document.getElementById("score");
-let balloonRef: HTMLElement | null = document.getElementById("balloon");
 let scoreContainer: HTMLElement | null = document.getElementById("scoreContainer");
 let pCountDown: HTMLElement | null = document.getElementById("countDown");
+let pNumOne: HTMLElement | null = document.getElementById("numOne");
+let pNumTwo: HTMLElement | null = document.getElementById("numTwo");
+let pNumThree: HTMLElement | null = document.getElementById("numThree");
+let divNameContainer: HTMLElement | null = document.getElementById("nameContainer");
+let inputPlayersName: HTMLElement | null = document.getElementById("playersName");
+
+if(parseInt(localStorage["numOne"])<0){
+  localStorage.setItem("numOne","0");
+  localStorage.setItem("numOneName", "");
+  localStorage.setItem("numTwo","0");
+  localStorage.setItem("numTwoName", "");
+  localStorage.setItem("numThree","0");
+  localStorage.setItem("numThreeName", "");
+}
 
 let score = 0; 
 let firstPlay = true;
 let shouldPlay = false;
+let strPlayersName:string = "";
 
 let colorArray = ["#5FAD56","#F2C14E","#F78154","#D4CBE5","#6DB1BF","#BEFFC7","#044389","#9D6381","#EF7A85"];
 
 if(scoreContainer) scoreContainer.onclick = divideModes; 
+if(inputPlayersName) inputPlayersName.onkeydown = changeName;
 
 createblocks(9);
+updateLocalStorage();
 
 function render():void{
   if(!shouldPlay) return;
@@ -43,7 +59,10 @@ function render():void{
       render();
     },1);
   }
-  else shouldPlay = false;
+  else{
+    shouldPlay = false;
+    openNameInput();
+  } 
 }
 
 function selectBlockToShow(amount:number):void{
@@ -120,7 +139,7 @@ function balloonDown():void{
   if(mainContainerRef) mainContainerRef.classList.add("mainContainerDown");
 
   setTimeout(()=>{
-    if(scoreContainer) scoreContainer.style.left = "20vh";
+    if(scoreContainer) scoreContainer.style.left = "10vw";
     if(pScore) pScore.style.visibility = "visible";
     if(mainContainerRef) {
       mainContainerRef.style.top = "0";
@@ -172,6 +191,34 @@ function divideModes():void{
   }
 }
 
+function updateLocalStorage():void{
+  if(!firstPlay){
+    if(score > parseInt(localStorage["numOne"])){
+      localStorage["numThree"] = localStorage["numTwo"];
+      localStorage["numTwo"] = localStorage["numOne"];
+      localStorage["numOne"] = score +"";
+
+      localStorage["numThreeName"] = localStorage["numTwoName"];
+      localStorage["numTwoName"] = localStorage["numOneName"];
+      localStorage["numOneName"] = strPlayersName;
+    }
+    else if(score > parseInt(localStorage["numTwo"])){
+      localStorage["numThree"] = localStorage["numTwo"];
+      localStorage["numTwo"] = score +"";
+
+      localStorage["numThreeName"] = localStorage["numTwoName"];
+      localStorage["numTwoName"] = strPlayersName;
+    }
+    else if(score > parseInt(localStorage["numThree"])){
+      localStorage["numThree"] = score +"";
+
+      localStorage["numThreeName"] = strPlayersName;
+    }
+  }
+  if(pNumOne) pNumOne.innerHTML = localStorage["numOne"] + " " + localStorage["numOneName"];
+  if(pNumTwo) pNumTwo.innerHTML = localStorage["numTwo"] + " " + localStorage["numTwoName"];
+  if(pNumThree) pNumThree.innerHTML = localStorage["numThree"] + " " + localStorage["numThreeName"];
+}
 
 function reset():void{
   miliseconds = 500;
@@ -180,6 +227,25 @@ function reset():void{
     referenceArray[i].style.backgroundColor = colorArray[i]+"33";
     plusOneArray[i].style.visibility = "hidden";
   }
+}
+
+function changeName(event:KeyboardEvent):void{
+  divNameContainer?.classList.remove("nameOpen");
+  if(event.key == "Enter"){
+    let tempInput = <HTMLInputElement>inputPlayersName;
+    strPlayersName = tempInput.value;
+
+    tempInput.value = "Saved!";
+    setTimeout(()=>{
+      tempInput.value = strPlayersName;
+    },5000);
+
+    if(!shouldPlay) updateLocalStorage();
+  }
+}
+
+function openNameInput():void{
+  divNameContainer?.classList.add("nameOpen");
 }
 
 interface block{

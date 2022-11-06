@@ -7,6 +7,11 @@ body{
   margin: 0;
 }
 
+.secondFont {
+  font-family: 'Comfortaa', cursive;
+  font-size: clamp(0.5em, 1vw, 5vh);
+  font-weight: bold;
+}
 
 #topPanel{
   width: 100%;
@@ -115,14 +120,14 @@ body{
   padding: 0 0 2vh 0;
 }
 
-
+/* Balloon related */
 #scoreContainer {
   width:10vw;
   aspect-ratio: 1 / 2.6;
 
   position: absolute;
   top:30vh;
-  left: 35vw;
+  left: 45vw;
 
   animation-name: balloonMotion;
   animation-duration: 5s;
@@ -156,41 +161,6 @@ body{
   position:absolute;
 }
 
-
-#countDown {
-  color: white;
-  font-size: 30vh;
-
-  visibility: hidden;
-
-  position: absolute;
-  top: 20vh;
-
-  margin: auto;
-}
-
-#pUnderline {
-  position: absolute;
-  top: 95vh;
-
-  margin: 0;
-
-  font-family: 'Comfortaa', cursive;
-  font-size: clamp(0.5em, 1vw, 5vh);
-  font-weight: bold;
-
-  white-space: nowrap;
-
-  animation-name: underline;
-  animation-duration: 25s;
-  animation-iteration-count: infinite;
-}
-@keyframes underline {
-  0%   {left: -15vw;}
-  100% {left: 115vw;}
-}
-
-
 @keyframes balloonDownAnimation {
   0%   {top: 20vh;}
   50%  {top: 120vh;}
@@ -222,3 +192,167 @@ body{
   animation-iteration-count: 1 !important;
 }
 
+
+#countDown {
+  color: white;
+  font-size: 30vh;
+
+  visibility: hidden;
+
+  position: absolute;
+  top: 20vh;
+
+  margin: auto;
+}
+
+#pUnderline {
+  position: absolute;
+  top: 95vh;
+
+  margin: 0;
+
+  white-space: nowrap;
+
+  animation-name: underline;
+  animation-duration: 25s;
+  animation-iteration-count: infinite;
+}
+@keyframes underline {
+  0%   {left: -15vw;}
+  100% {left: 115vw;}
+}
+
+
+/* Highscore side bar */
+#sideContainer{
+  position: absolute;
+  left: 97vw;
+  top:20vh;
+
+  display: flex;
+  flex-direction: column;
+}
+#sideContainer > div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-flow: row nowrap;
+
+  width: 20vw;
+  margin-bottom: 2vw;
+
+  position: relative;
+
+  z-index: 6;
+}
+#sideContainer > div:hover, .nameOpen {
+  animation-name: bestScoreOpen;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+
+  left: -17vw;
+}
+@keyframes bestScoreOpen {
+  0%   {left: 0vw;}
+  100% {left: -17vw;}
+}
+
+
+#sideScoreContainer {
+  height: 30vh;
+}
+#sideScoreContainer > div{
+  background-color: #f1f1f1;
+} 
+
+#lable {
+  width: 15%;
+  height: 50%;
+
+  border-radius: 1vw 0 0 1vw;
+
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  font-size: clamp(0.4em, 2vw, 3vh);
+  text-align: center;
+  place-content: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#highScoreContainer{
+  width: 75%;
+  height: 100%;
+
+  padding-left:10%;
+
+  border-radius: 0 0 0 1vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+#highScoreContainer > p {
+  margin: 0;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+#numOne {
+  color: #5FAD56;
+  font-size: min(3vw, 4vw);
+}
+#numTwo {
+  color:#F2C14E;
+  font-size: min(2.5vw, 3.5vw);
+}
+#numThree {
+  color: #F78154;
+  font-size: min(2vw, 3vw);
+}
+
+/* name side container */
+#nameContainer{
+  background-color: #f1f1f1;
+
+  height: 7vh;
+
+  border-radius: 1vw 0 0 1vw;
+}
+
+#nameContainer > img{
+  height: max(2vw, 60%);
+  aspect-ratio: 1 / 1;
+
+  position: relative;
+  top: 20%;
+  left: 2%;
+}
+
+#playersName {
+  height: 60%;
+  width: 70%;
+
+  border:none;
+  border-bottom: 0.3vh solid black;
+
+  background-color: inherit;
+  color: black;
+  
+
+  position: relative;
+  top: 20%;
+  left: 7%;
+}
+#playersName::placeholder{
+  color:rgb(62, 62, 62);
+  font-size: min(1vw, 2vw);
+}
+#playersName:focus{
+  outline: none;
+}
+#nameContainer:has(#playersName:focus){
+  left: -17vw;
+}
